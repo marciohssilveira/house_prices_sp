@@ -1,5 +1,8 @@
 import pandas as pd
-import geopy.distance as gpd
+import math
+import time
+start_time = time.time()
+
 
 """"
 the datasets for this work were obtained from 
@@ -20,22 +23,53 @@ stations_coords = list(zip(metro['lon'], metro['lat']))
 station_names = list(metro.index)
 
 
+def calculate_distance(origin, destination):
+    """"
+    Function to calculate a distance between two coordinates (lat, lon)
+    It was made using the Haversine formula
+    The results are in kilometers
+    """""
+    lat1, lon1 = origin
+    lat2, lon2 = destination
+    radius = 6371 # km -> change earth radius for results in other units
+
+    dlat = math.radians(lat2-lat1)
+    dlon = math.radians(lon2-lon1)
+    a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) \
+        * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    d = radius * c
+
+    return d
+
+
 def get_min_distance(properties, stations, names):
     """"
     This function uses the coordinates of the properties and of the subway stations to calculate its distances
     using a geopy function. Then it will find the closest station to each property and return its name and distance.
-    """"
-    properties_distances = []
-    stations_names = []
+    """""
+    result = []
     for property in properties:
-        station_distances = {}
+        min_dist = float('inf')
+        min_station_name = None
         for station, name in zip(stations, names):
-            station_distances[name] = gpd.distance(property, station).km
-        min_distance = min(station_distances.values())
-        station_name = [key for key in station_distances if station_distances[key] == min_distance]
-        properties_distances.append(min_distance)
-        stations_names.append(station_name)
-    return list(zip(stations_names, properties_distances))
+            dist = calculate_distance(property, station)
+            if dist <= min_dist:
+                min_dist = dist
+                min_station_name = name
+
+        result.append((min_station_name, min_dist))
+    return result
 
 
 property_distances = get_min_distance(properties_coords, stations_coords, station_names)
+
+
+# Unpacking the result of the function and inserting them as new columns into the estate dataframe.
+estate['nearest_station'] = [names for names, distance in property_distances]
+estate['nearest_station_distance'] = [distance for names, distance in property_distances]
+
+estate.to_csv('estate_updated.csv')
+
+
+print("--- the script ran in %s seconds ---" % (time.time() - start_time))
