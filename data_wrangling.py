@@ -72,4 +72,4 @@ estate['nearest_station_distance'] = [distance for names, distance in property_d
 estate.to_csv('estate_updated.csv')
 
 
-print("--- the script ran in %s seconds ---" % (time.time() - start_time))
+print(f"--- the script ran in {time.time() - start_time} seconds --- ")
