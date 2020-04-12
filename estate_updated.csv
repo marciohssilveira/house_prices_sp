@@ -1,4 +1,4 @@
-Price,condo,size,rooms,toilets,suites,parking,elevator,furnished,swimming_pool,new,district,negotiation_type,property_type,latitude,longitude,nearest_station,nearest_station_distance
+price,condo,size,rooms,toilets,suites,parking,elevator,furnished,swimming_pool,new,district,negotiation_type,property_type,latitude,longitude,nearest_station,nearest_station_distance
 930,220,47,2,2,1,1,0,0,0,0,Artur Alvim/São Paulo,rent,apartment,-23.543138,-46.479486,artur-alvim,0.6213314360591559
 1000,148,45,2,2,1,1,0,0,0,0,Artur Alvim/São Paulo,rent,apartment,-23.550239,-46.480717999999996,artur-alvim,0.884502105308898
 1000,100,48,2,2,1,1,0,0,0,0,Artur Alvim/São Paulo,rent,apartment,-23.542818,-46.485665000000004,artur-alvim,0.22406997998181952

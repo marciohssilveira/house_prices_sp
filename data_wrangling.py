@@ -12,7 +12,7 @@ https://www.kaggle.com/thiagodsd/sao-paulo-metro
 the main goal of this work is to find a apartment in SP that suits the needs of people
 """
 # Importing the data:
-estate = pd.read_csv('sao-paulo-properties-april-2019.csv', index_col=0)
+estate = pd.read_csv('sao-paulo-properties-april-2019.csv')
 estate.columns = estate.columns.str.lower().str.replace(' ', '_')
 
 metro = pd.read_csv('metrosp_stations.csv', index_col='station', sep=';')
@@ -69,7 +69,7 @@ property_distances = get_min_distance(properties_coords, stations_coords, statio
 estate['nearest_station'] = [names for names, distance in property_distances]
 estate['nearest_station_distance'] = [distance for names, distance in property_distances]
 
-estate.to_csv('estate_updated.csv')
+estate.to_csv('estate_updated.csv', index=False)
 
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
