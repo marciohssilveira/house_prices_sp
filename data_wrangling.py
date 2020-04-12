@@ -21,6 +21,10 @@ station_names = list(metro.index)
 
 
 def get_min_distance(properties, stations, names):
+    """"
+    This function uses the coordinates of the properties and of the subway stations to calculate its distances
+    using a geopy function. Then it will find the closest station to each property and return its name and distance.
+    """"
     properties_distances = []
     stations_names = []
     for property in properties:
