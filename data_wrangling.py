@@ -70,6 +70,6 @@ estate['nearest_station'] = [names for names, distance in property_distances]
 estate['nearest_station_distance'] = [distance for names, distance in property_distances]
 
 # Saving the new data into the csv file
-estate.to_csv('real_estate_sp.csv')
+estate.to_csv('real_estate_sp.csv', index=False)
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
