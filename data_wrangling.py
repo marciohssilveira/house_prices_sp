@@ -69,10 +69,7 @@ property_distances = get_min_distance(properties_coords, stations_coords, statio
 estate['nearest_station'] = [names for names, distance in property_distances]
 estate['nearest_station_distance'] = [distance for names, distance in property_distances]
 
-rent_properties = estate['negotiation_type'] == 'rent'
-sale_properties = estate['negotiation_type'] == 'sale'
-
-estate[rent_properties].to_csv('rent_properties.csv', index=False)
-estate[sale_properties].to_csv('sale_properties.csv', index=False)
+# Saving the new data into the csv file
+estate.to_csv('real_estate_sp.csv')
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
