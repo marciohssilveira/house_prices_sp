@@ -20,32 +20,23 @@ sns.set_style('darkgrid')
 sns.set_palette('pastel')
 
 # Distributions of data
-# sns.boxplot(rent['price'])
-# plt.show()
+sns.boxplot(rent['price'])
+plt.show()
 
-# Broad view of data
-rent.describe()
+def remove_outliers(dataframe):
+    """
+    Interquartile range (IQR) is a measure of statistical dispersion,
+    being equal to the difference between 75th and 25th percentiles.
 
-rent['price'].hist()
+    This function removes outliers from the given dataframe using
+    """
+    Q1 = dataframe.quantile(0.25)
+    Q3 = dataframe.quantile(0.75)
+    IQR = Q3 - Q1
+    updated = dataframe[~((dataframe < (Q1 - 1.5 * IQR)) | (dataframe > (Q3 + 1.5 * IQR))).any(axis=1)]
+    return updated
 
-# Skewness and Kurtosis
-skewness = rent['price'].skew()
-kurtosis = rent['price'].kurt()
-print(rent['price'].describe())
-print(f'Skewness: {skewness}')
-print(f'Kurtosis: {kurtosis}')
-
-# Interquartile range (IQR) is a measure of statistical dispersion,
-# being equal to the difference between 75th and 25th percentiles
-Q1 = rent.quantile(0.25)
-Q3 = rent.quantile(0.75)
-IQR = Q3 - Q1
-print(IQR)
-
-# What is this line doing?
-rent_updated = rent[~((rent < (Q1 - 1.5 * IQR)) | (rent > (Q3 + 1.5 * IQR))).any(axis=1)]
-
-rent_updated.describe()
+rent_updated = remove_outliers(rent)
 
 # Distributions of data
 sns.boxplot(rent_updated['price'])
