@@ -9,15 +9,6 @@ estate = pd.read_csv('real_estate_sp.csv', index_col=False)
 rent = estate[estate['negotiation_type'] == 'rent']
 # sale = estate[estate['negotiation_type'] == 'sale']
 
-# Setting styles and colours for the graphics
-sns.set_style('darkgrid')
-sns.set_palette('pastel')
-
-# Take a look a the distribution of the variable price in the rent data
-sns.distplot(rent['price'])
-plt.title('Price distribution for rent properties')
-plt.show()
-
 # Filtering the data according to the distance to the nearest subway station
 # rent = rent[rent['nearest_station_distance'] <= 1]
 
@@ -25,11 +16,6 @@ plt.show()
 # numerical = rent.dtypes[rent.dtypes != "object"].index
 # categorical = rent.dtypes[rent.dtypes == "object"].index
 
-
-# Distributions of data
-sns.boxplot(rent['price'])
-plt.title('Price distribution for rent properties')
-plt.show()
 
 def remove_outliers(dataframe):
     """
@@ -47,7 +33,13 @@ def remove_outliers(dataframe):
 
 rent_updated = remove_outliers(rent)
 
-# Distributions of data
-sns.boxplot(rent_updated['price'])
-plt.title('Price distribution for rent properties - Without outliers')
+# Comparing the data before and after removing outliers with IQR technique
+fig, axs = plt.subplots(1, 2)
+axs[0].boxplot(rent['price'])
+axs[0].set_title('With Outliers')
+axs[1].boxplot(rent_updated['price'])
+axs[1].set_title('Without outliers')
 plt.show()
+
+# Storing the rent data in a new csv
+rent_updated.to_csv('rent_data.csv', index=False)

@@ -31,7 +31,7 @@ def calculate_distance(origin, destination):
     """""
     lat1, lon1 = origin
     lat2, lon2 = destination
-    radius = 6371 # km -> change earth radius for results in other units
+    radius = 6371 # m -> change earth radius for results in other units
 
     dlat = math.radians(lat2-lat1)
     dlon = math.radians(lon2-lon1)
