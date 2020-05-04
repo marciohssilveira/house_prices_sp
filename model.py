@@ -9,7 +9,7 @@ import time
 start_time = time.time()
 
 # Open csv
-data = pd.read_csv('rent_data.csv')
+data = pd.read_csv('data/rent_data.csv')
 
 # Feature engineering
 data['total_price'] = data['price'] + data['condo']

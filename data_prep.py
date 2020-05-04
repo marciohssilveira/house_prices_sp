@@ -14,11 +14,11 @@ the main goal of this work is to find a apartment in SP that suits the needs of 
 """
 # Importing the data:
 # House prices data
-house_prices = pd.read_csv('sao-paulo-properties-april-2019.csv')
+house_prices = pd.read_csv('data/sao-paulo-properties-april-2019.csv')
 house_prices.columns = house_prices.columns.str.lower().str.replace(' ', '_')
 
 # Sao Paulo Metro Stations data
-metro = pd.read_csv('metrosp_stations.csv', index_col='station', sep=';')
+metro = pd.read_csv('data/metrosp_stations.csv', index_col='station', sep=';')
 
 # Extracting some useful information for calculating the distances
 # between the houses and the metro stations
@@ -111,6 +111,6 @@ axs[1].set_title('Without outliers')
 plt.show()
 
 # Storing the rent data in a new csv
-rent_updated.to_csv('rent_data.csv', index=False)
+rent_updated.to_csv('data/rent_data.csv', index=False)
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
