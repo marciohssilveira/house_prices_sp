@@ -76,7 +76,6 @@ house_prices['nearest_station_distance'] = [distance for names, distance in prop
 # From now on we'll be working only with properties for rent
 # Filtering the data according to the negotiation type
 rent = house_prices[house_prices['negotiation_type'] == 'rent']
-# sale = house_prices[house_prices['negotiation_type'] == 'sale']
 
 # Filtering the data according to the distance to the nearest subway station
 # rent = rent[rent['nearest_station_distance'] <= 1]
