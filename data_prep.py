@@ -113,3 +113,4 @@ plt.show()
 rent_updated.to_csv('data/rent_data.csv', index=False)
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
+print(f"--- the script ran in {time.time() - start_time} seconds --- ")
