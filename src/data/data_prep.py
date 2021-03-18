@@ -14,11 +14,11 @@ the main goal of this work is to find a apartment in SP that suits the needs of 
 """
 # Importing the data:
 # House prices data
-house_prices = pd.read_csv('data/sao-paulo-properties-april-2019.csv')
+house_prices = pd.read_csv('data/raw/sao-paulo-properties-april-2019.csv')
 house_prices.columns = house_prices.columns.str.lower().str.replace(' ', '_')
 
 # Sao Paulo Metro Stations data
-metro = pd.read_csv('data/metrosp_stations.csv', index_col='station', sep=';')
+metro = pd.read_csv('data/raw/metrosp_stations.csv', index_col='station', sep=';')
 
 # Extracting some useful information for calculating the distances
 # between the houses and the metro stations
@@ -77,40 +77,8 @@ house_prices['nearest_station_distance'] = [distance for names, distance in prop
 # Filtering the data according to the negotiation type
 rent = house_prices[house_prices['negotiation_type'] == 'rent']
 
-# Filtering the data according to the distance to the nearest subway station
-# rent = rent[rent['nearest_station_distance'] <= 1]
-
-# Numerical and Categorical features
-# numerical = rent.dtypes[rent.dtypes != "object"].index
-# categorical = rent.dtypes[rent.dtypes == "object"].index
-
-
-def remove_outliers(dataframe):
-    """
-    Interquartile range (IQR) is a measure of statistical dispersion,
-    being equal to the difference between 75th and 25th percentiles.
-
-    This function removes outliers from the given dataframe using
-    """
-    Q1 = dataframe.quantile(0.25)
-    Q3 = dataframe.quantile(0.75)
-    IQR = Q3 - Q1
-    updated = dataframe[~((dataframe < (Q1 - 1.5 * IQR)) | (dataframe > (Q3 + 1.5 * IQR))).any(axis=1)]
-    return updated
-
-
-rent_updated = remove_outliers(rent)
-
-# Comparing the data before and after removing outliers with IQR technique
-fig, axs = plt.subplots(1, 2)
-axs[0].boxplot(rent['price'])
-axs[0].set_title('With Outliers')
-axs[1].boxplot(rent_updated['price'])
-axs[1].set_title('Without outliers')
-plt.show()
-
 # Storing the rent data in a new csv
-rent_updated.to_csv('data/rent_data.csv', index=False)
+rent.to_csv('data/processed/rent_data.csv', index=False)
 
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
 print(f"--- the script ran in {time.time() - start_time} seconds --- ")
