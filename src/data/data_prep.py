@@ -35,7 +35,7 @@ def calculate_distance(origin, destination):
     """""
     lat1, lon1 = origin
     lat2, lon2 = destination
-    radius = 6371 # m -> change earth radius for results in other units
+    radius = 6371000 # m -> change earth radius for results in other units
 
     dlat = math.radians(lat2-lat1)
     dlon = math.radians(lon2-lon1)
@@ -70,8 +70,15 @@ property_distances = get_min_distance(properties_coords, stations_coords, statio
 
 
 # Unpacking the result of the function and inserting them as new columns into the estate dataframe.
-house_prices['nearest_station'] = [names for names, distance in property_distances]
+# house_prices['nearest_station'] = [names for names, distance in property_distances]
 house_prices['nearest_station_distance'] = [distance for names, distance in property_distances]
+
+point = (-46.6388, -23.5489)
+distances = []
+for property in properties_coords:
+    dist = calculate_distance(property, point)
+    distances.append(dist)
+house_prices['distance_to_city_center'] = distances
 
 # From now on we'll be working only with properties for rent
 # Filtering the data according to the negotiation type
